@@ -1,0 +1,24 @@
+name: "Find cluster directories with FluxCD 2 installed"
+description: "Find cluster directories with FluxCD 2 installed"
+inputs:
+  directory:
+    description: "Clusters directory"
+    required: true
+    default: "clusters"
+  file:
+    description: "FluxCD 2 flux-system/gotk-components.yaml file"
+    default: "flux-system/gotk-components.yaml"
+outputs:
+  directories:
+    description: "Directories containing FluxCD 2 installed"
+    value: ${{ steps.get-flux-directories.outputs.directories }}
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        echo directories=$(${{ github.action_path }}/list-flux-directories.sh '${{ inputs.directory }}' '${{ inputs.file }}' | jq -Rnc '[inputs]') >> $GITHUB_OUTPUT
+      shell: bash
+      id: get-flux-directories
+branding:
+  icon: folder
+  color: white
