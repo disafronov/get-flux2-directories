@@ -20,11 +20,8 @@ jobs:
     outputs:
       directories: ${{ steps.get-flux-directories.outputs.directories }}
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
       - name: Find cluster directories with FluxCD 2 installed
-        uses: dmitriysafronov/get-flux2-directories@1.0.1
+        uses: dmitriysafronov/get-flux2-directories@2.0.0
         id: get-flux-directories
 
   upgrade-flux:
@@ -35,11 +32,8 @@ jobs:
       matrix:
         directory: ${{ fromJson(needs.list-clusters.outputs.directories ) }}
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
       - name: Upgrade FluxCD 2 in cluster directory
-        uses: dmitriysafronov/upgrade-flux2-pr@1.0.2
+        uses: dmitriysafronov/upgrade-flux2-pr@2.0.0
         with:
             directory: ${{ matrix.directory }}
 ```
