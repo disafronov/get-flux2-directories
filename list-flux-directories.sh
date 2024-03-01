@@ -5,10 +5,10 @@ die() {
   exit 1
 }
 
-test -n "$(which find)"  || die "No [find] found!"
-test -n "$(which sed)"  || die "No [sed] found!"
+test -n "$(which find)" || die "No [find] found!"
+test -n "$(which sed)" || die "No [sed] found!"
 
-test -n "${1}" && ROOT_DIR="${1}/"  || ROOT_DIR="./"
+test -n "${1}" && ROOT_DIR="${1}/" || ROOT_DIR="./"
 test -n "${2}" && FILE_CHECK="${2}" || FILE_CHECK="flux-system/gotk-components.yaml"
 
 find "${ROOT_DIR}" -maxdepth 1 -type d | while read DIR
