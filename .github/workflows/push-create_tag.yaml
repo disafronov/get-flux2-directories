@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout
         if: "${{ ! startsWith(github.event.head_commit.message, 'docs: update changelog for ') }}"
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.2.2
         with:
           token: ${{ secrets.PAT }}
           fetch-depth: 0
@@ -30,14 +30,15 @@ jobs:
 
       - name: Update CHANGELOG.md
         if: "${{ ! startsWith(github.event.head_commit.message, 'docs: update changelog for ') && steps.semver.outputs.next != '' }}"
-        uses: orhun/git-cliff-action@v4
+        uses: orhun/git-cliff-action@v4.4.2
         with:
           config: .cliff.git.toml
           args: --tag ${{ steps.semver.outputs.next }}
         env:
           OUTPUT: CHANGELOG.md
 
-      - uses: EndBug/add-and-commit@v9.1.4
+      - name: Commit changes back to repository
+        uses: EndBug/add-and-commit@v9.1.4
         if: "${{ ! startsWith(github.event.head_commit.message, 'docs: update changelog for ') && steps.semver.outputs.next != '' }}"
         with:
           add: 'CHANGELOG.md'
