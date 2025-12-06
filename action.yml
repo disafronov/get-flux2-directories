@@ -16,7 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout source
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.1
     - name: Find cluster directories with FluxCD 2 installed 
       run: |
         echo directories=$(${{ github.action_path }}/list-flux-directories.sh '${{ inputs.directory }}' '${{ inputs.file }}' | jq -Rnc '[inputs]') >> $GITHUB_OUTPUT
